@@ -3,9 +3,11 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
+import pizzas from './assets/pizzas.json';
+
 import './scss/app.scss';
 
-
+console.log(pizzas);
 
 function App() {
   return (
@@ -19,12 +21,11 @@ function App() {
           </div>
           <h2 class="content__title">Все пиццы</h2>
           <div class="content__items">
-            <PizzaBlock title='Мексиканская' price='200' />
-            <PizzaBlock title='Паперони' price='180' />
-            <PizzaBlock title='Гавайская' price='210' />
-            <PizzaBlock title='Бургер пицца' price='220' />
-            <PizzaBlock title='Мексиканская' price='200' />
-            <PizzaBlock title='Мексиканская' price='200' />
+            {
+              pizzas.map((obj) => (
+                <PizzaBlock {...obj} />
+              ))
+            }
           </div>
         </div>
       </div>

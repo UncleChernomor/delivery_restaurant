@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-function PizzaBlock({ title, price, ...props }) {
+function PizzaBlock({ title, price, imageUrl, types, ...props }) {
     console.log({ title, price, ...props });
     const [pizzaCount, setPizzaCount] = useState(0);
+
+    const typeSize = ['slice', 'standart', 'plump'];
+
     function onClickAdd() {
         setPizzaCount(pizzaCount + 1);
     }
@@ -11,14 +14,18 @@ function PizzaBlock({ title, price, ...props }) {
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src={imageUrl}
                 alt="Pizza"
             />
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {
+                        types.map((item) => (
+                            <li>{typeSize[item]}</li>
+                        ))
+                    }
+
                 </ul>
                 <ul>
                     <li className="active">26 см.</li>
