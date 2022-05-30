@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-function PizzaBlock({ title, price, imageUrl, types, ...props }) {
+function PizzaBlock({ title, price, imageUrl, types, sizes, ...props }) {
     console.log({ title, price, ...props });
     const [pizzaCount, setPizzaCount] = useState(0);
+    const [activeType, setActiveType] = useState(0);
+    const [activeSize, setActiveSize] = useState(0);
 
     const typeSize = ['slice', 'standart', 'plump'];
 
@@ -22,15 +24,16 @@ function PizzaBlock({ title, price, imageUrl, types, ...props }) {
                 <ul>
                     {
                         types.map((item) => (
-                            <li>{typeSize[item]}</li>
+                            <li className={activeType === item ? 'active' : ''} onClick={() => setActiveType(item)}>{typeSize[item]}</li>
                         ))
                     }
-
                 </ul>
                 <ul>
-                    <li className="active">26 см.</li>
-                    <li>30 см.</li>
-                    <li>40 см.</li>
+                    {
+                        sizes.map((item, i) => (
+                            <li className={activeSize === i ? 'active' : ''} onClick={() => setActiveSize(i)}>{item}</li>
+                        ))
+                    }
                 </ul>
             </div>
             <div className="pizza-block__bottom">

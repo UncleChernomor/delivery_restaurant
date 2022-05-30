@@ -19,7 +19,7 @@ function App() {
             <Categories />
             <Sort />
           </div>
-          <h2 class="content__title">Все пиццы</h2>
+          <h2 class="content__title">List pizzas</h2>
           <div class="content__items">
             {
               pizzas.map((obj) => (
