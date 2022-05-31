@@ -18,6 +18,9 @@
     font-weight: 900;
     letter-spacing: 1%;
     margin-bottom: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__selector {
