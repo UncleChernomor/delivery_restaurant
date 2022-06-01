@@ -8,8 +8,8 @@ function Header() {
                 <Link to='/' className="header__logo">
                     <img width="38" src={pizzaLogo} alt="Pizza logo" />
                     <div>
-                        <h1>React Pizza</h1>
-                        <p>самая вкусная пицца во вселенной</p>
+                        <h1>Our Pizza</h1>
+                        <p>the best pizza of the world</p>
                     </div>
                 </Link>
                 <div className="header__cart">
