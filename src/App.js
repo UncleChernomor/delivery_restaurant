@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import './scss/app.scss';
 
@@ -7,10 +7,7 @@ import Header from './components/Header';
 import NoFoundPage from "./pages/NoFoundPage";
 import Cart from "./pages/Cart";
 
-
-
 function App() {
-
 
   return (
     <div className="wrapper">

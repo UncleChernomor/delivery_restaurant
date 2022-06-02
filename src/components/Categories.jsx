@@ -1,22 +1,14 @@
-import { useState } from "react";
-
-function Categories() {
-    const [activeCategory, setActiveCategory] = useState(0);
-
+function Categories({ changeCategory, value, ...props }) {
     const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Spicy', 'Сalcione'];
-
-    function onClickCategory(index) {
-        setActiveCategory(index);
-    }
 
     return (
         <div className="categories">
             <ul>
                 {
-                    categories.map((value, index) => (
-                        <li onClick={() => onClickCategory(index)}
-                            className={activeCategory === index ? 'active' : ''}
-                            key={value}>{value}
+                    categories.map((item, index) => (
+                        <li onClick={() => changeCategory(index)}
+                            className={value === index ? 'active' : ''}
+                            key={item}>{item}
                         </li>
                     ))
                 }

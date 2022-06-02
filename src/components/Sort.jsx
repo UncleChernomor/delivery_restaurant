@@ -42,10 +42,6 @@ function Sort() {
                                     >{item}</li>
                                 ))
                             }
-                            {/* < li className="active">популярности</li>
-                            <li>цене</li>
-                            <li>алфавиту</li> */}
-
                         </ul>
                     </div>
                 )

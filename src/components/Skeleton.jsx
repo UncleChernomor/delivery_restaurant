@@ -1,8 +1,6 @@
 import styles from './Skeleton.module.scss';
 
 function Skeleton(props) {
-    console.log('key: ' + props.key);
-
     return (
         <div className={styles.pizza_block}>
             <div
