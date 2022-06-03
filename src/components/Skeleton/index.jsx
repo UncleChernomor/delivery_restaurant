@@ -12,7 +12,6 @@ function Skeleton(props) {
             <div className="pizza-block__bottom">
                 <div className={styles.pizza_price}></div>
                 <div className={styles.pizza_button}>
-
                 </div>
             </div>
         </div >
