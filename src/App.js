@@ -7,6 +7,8 @@ import Header from './components/Header';
 import NoFoundPage from "./pages/NoFoundPage";
 import Cart from "./pages/Cart";
 
+
+
 function App() {
 
   return (

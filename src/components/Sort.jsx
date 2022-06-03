@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-function Sort() {
+function Sort({ changeSorting, value, props }) {
     const [isVisible, setVisible] = useState(false);
-    const [activeItem, setActiveItem] = useState(0);
 
     const sortBy = ['popular', 'price', 'alphabet'];
 
-    function changeSort(index) {
-        setActiveItem(index);
-        setVisible(!isVisible);
+    function changeSelectItem(index) {
+        changeSorting(index);
+        setVisible(false);
     }
 
     return (
@@ -27,7 +26,7 @@ function Sort() {
                     />
                 </svg>
                 <b>Sort by:</b>
-                <span onClick={() => setVisible(!isVisible)}>{sortBy[activeItem]}</span>
+                <span onClick={() => setVisible(!isVisible)}>{sortBy[value]}</span>
             </div>
 
             {
@@ -36,10 +35,10 @@ function Sort() {
                         <ul>
                             {
                                 sortBy.map((item, index) => (
-                                    <li className={activeItem === index ? 'active' : ''}
+                                    <li className={value === index ? 'active' : ''}
                                         key={index}
-                                        onClick={() => changeSort(index)}
-                                    >{item}</li>
+                                        onClick={() => changeSelectItem(index)}> {item}
+                                    </li>
                                 ))
                             }
                         </ul>

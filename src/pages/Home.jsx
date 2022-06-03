@@ -8,14 +8,16 @@ import Skeleton from '../components/Skeleton';
 function Home(props) {
     const [items, setItems] = useState(new Array(6));
     const [isLoading, setIsLoading] = useState(true);
-    const [sortSelect, setSortSelect] = useState(0);
     const [activeCategory, setActiveCategory] = useState(0);
+    const [activeItemSorting, setActiveItemSorting] = useState(0);
 
-    const sortName = ['title', 'price', 'rating']
+    const sortName = ['rating', 'price', 'title'];
 
     useEffect(() => {
+        // console.log(activeCategory);
+        setIsLoading(true);
         //use mockapi server for test data
-        fetch('https://629603be810c00c1cb6d58ed.mockapi.io/items')
+        fetch(`https://629603be810c00c1cb6d58ed.mockapi.io/items?category=${activeCategory ? activeCategory : ''}&sortBy=${sortName[activeItemSorting]}`)
             .then((response) => {
                 return response.json();
             })
@@ -28,23 +30,21 @@ function Home(props) {
             });
 
         // window.scrollTo(0, 0);
-    }, []);
+    }, [activeCategory, activeItemSorting]);
 
     /**
      * callback for set active category
      * @param {*} i number category
      */
-    const changeCategory = useCallback(
-        (i) => {
-            setActiveCategory(i);
-        }
-    );
+    const changeCategory = (i) => { setActiveCategory(i); }
+
+    const changeSorting = (i) => { setActiveItemSorting(i); }
 
     return (
         <>
             <div className="content__top">
                 <Categories value={activeCategory} changeCategory={changeCategory} />
-                <Sort />
+                <Sort value={activeItemSorting} changeSorting={changeSorting} />
             </div>
             <h2 className="content__title">List pizzas</h2>
             <div className="content__items">

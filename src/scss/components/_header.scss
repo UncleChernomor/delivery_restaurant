@@ -9,8 +9,8 @@
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 650px) {
-      flex-direction: column-reverse;
+    @media (max-width: 950px) {
+      flex-direction: column;
       gap: 30px;
     }
   }
