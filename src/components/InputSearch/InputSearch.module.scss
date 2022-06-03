@@ -27,5 +27,9 @@
         height: 26px;
         opacity: 0.3;
         position: absolute;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
