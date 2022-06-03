@@ -6,6 +6,7 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
 import filterData from '../utils/search.mjs';
+import Pagination from '../components/Pagination';
 
 
 function Home(props) {
@@ -41,11 +42,13 @@ function Home(props) {
     /**
      * callback for set active category
      * @param {*} i number category
-            */
+     */
     const changeCategory = (i) => { setActiveCategory(i); }
 
     const changeSorting = (i) => { setActiveItemSorting(i); }
 
+    console.log('item-- ' + items.length);
+    console.log('item-- ' + items.length / 4);
     return (
         <>
             <div className="content__top">
@@ -59,6 +62,7 @@ function Home(props) {
                         : [...items].map((_, index) => (<Skeleton key={index} />))
                 }
             </div>
+            <Pagination countPage={Math.ceil(items.length / 4)} />
         </>
     );
 }
