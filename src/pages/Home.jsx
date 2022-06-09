@@ -9,7 +9,7 @@ import filterData from '../utils/search.mjs';
 import Pagination from '../components/Pagination';
 
 function Home(props) {
-    const { searchValue } = useContext(SearchContext);
+    const { searchValue, setSearchValue } = useContext(SearchContext);
 
     const [items, setItems] = useState(new Array(6));
     const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +36,14 @@ function Home(props) {
         let strCategory = activeCategory ? `&category=${activeCategory}` : '';
         //Включаем как есть strSearch
         let strSearch = searchValue ? `&title=${searchValue}` : '';
-        const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strCategory}${strSearch}`;
+
+        //если строка поиска не пустая, а категория задана
+        //сбрасываем категорию, mockapi не выдает данные как надо
+        if (strSearch.length && activeCategory) {
+            setActiveCategory(0);
+        }
+
+        const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`;
         console.log('strQuery: ' + strQuery);
 
         // use mockapi server for test data
@@ -51,7 +58,7 @@ function Home(props) {
                     resolve(0);
                 })
             })
-            .then(() => fetch(strQuery + strSort + strPage))
+            .then(() => fetch(strQuery + strPage))
             .then(response => response.json())
             .then((data) => {
                 setItems(data);
@@ -68,7 +75,10 @@ function Home(props) {
      * callback for set active category
      * @param {*} i number category
      */
-    const changeCategory = (i) => { setActiveCategory(i); }
+    const changeCategory = (i) => {
+        setSearchValue('');
+        setActiveCategory(i);
+    }
 
     const changeSorting = (i) => { setActiveItemSorting(i); }
 
@@ -78,24 +88,6 @@ function Home(props) {
      */
     const showPage = (index) => {
         setCurrentPage(index);
-    }
-
-    async function countCurrentItems(strQuery) {
-        let result = 0;
-
-        await fetch(strQuery)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                result = data.length
-                setCountPage(Math.ceil(result / countItemOnPage));
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
-        return result;
     }
 
     return (
