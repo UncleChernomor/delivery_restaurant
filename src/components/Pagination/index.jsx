@@ -1,8 +1,9 @@
-import { useState, useSyncExternalStore } from 'react';
+import { useState } from 'react';
 import styles from './Pagination.module.scss';
 
 function Pagination({ countPage, setPage, ...props }) {
     const [isActive, setIsActive] = useState(0);
+    console.log('countPage-- ' + countPage);
 
     /**
      * 
@@ -25,14 +26,15 @@ function Pagination({ countPage, setPage, ...props }) {
                     </svg></li>
                 {/* This is the number page adding loop here*/}
                 {
-                    Array.from({ length: countPage }, (_, index) => {
-                        return (<li className={isActive === index ? styles.pselected : ''}
+                    Array.from({ length: countPage }, (_, index) =>
+                        <li className={isActive === index ? styles.pselected : ''}
                             key={index} onClick={() => {
                                 setPage(index);
                                 setIsActive(index);
                             }}>{index + 1}
-                        </li>)
-                    })
+                        </li>
+                    )
+
                 }
 
                 {/* <li className={styles.item} onClick={(e) => e.target.classList.add('active')}>1</li>

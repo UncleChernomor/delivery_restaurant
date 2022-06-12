@@ -5,26 +5,29 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
-import filterData from '../utils/search.mjs';
+// import filterData from '../utils/search.mjs';
 import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId } from '../redux/slice/filterSlice';
 
 function Home(props) {
-    const { searchValue, setSearchValue } = useContext(SearchContext);
+    const { searchValue } = useContext(SearchContext);
 
     const [items, setItems] = useState(new Array(6));
     const [isLoading, setIsLoading] = useState(true);
-    const [activeCategory, setActiveCategory] = useState(0);
-    const [activeItemSorting, setActiveItemSorting] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [countPage, setCountPage] = useState(0);
 
+    const activeCategory = useSelector((state) => state.filter.categoryId);
+    const activeItemSorting = useSelector((state) => state.filter.sortId);
+    const dispatch = useDispatch();
+
     const sortName = ['rating', 'price', 'title'];
     const countItemOnPage = 4;
-    let countAllItems = 10;
+    let countAllItems = 0;
 
 
     useEffect(() => {
-        // console.log(activeCategory);
         setIsLoading(true);
         setCountPage(Math.ceil(countAllItems / countItemOnPage));
 
@@ -40,7 +43,7 @@ function Home(props) {
         //если строка поиска не пустая, а категория задана
         //сбрасываем категорию, mockapi не выдает данные как надо
         if (strSearch.length && activeCategory) {
-            setActiveCategory(0);
+            dispatch(setCategoryId(0));
         }
 
         const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`;
@@ -51,9 +54,7 @@ function Home(props) {
             .then((response) => response.json())
             .then(data => {
                 return new Promise((resolve, reject) => {
-                    console.log(data.length);
                     setCountPage(Math.ceil(data.length / countItemOnPage));
-                    console.log(countPage);
                     strPage = `&page=${Math.ceil(data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(data.length / countItemOnPage) ? countItemOnPage : ''}`;
                     resolve(0);
                 })
@@ -72,17 +73,6 @@ function Home(props) {
     }, [activeCategory, activeItemSorting, searchValue, currentPage]);
 
     /**
-     * callback for set active category
-     * @param {*} i number category
-     */
-    const changeCategory = (i) => {
-        setSearchValue('');
-        setActiveCategory(i);
-    }
-
-    const changeSorting = (i) => { setActiveItemSorting(i); }
-
-    /**
      * callback for Pagination
      * @param {*} index current page
      */
@@ -93,8 +83,8 @@ function Home(props) {
     return (
         <>
             <div className="content__top">
-                <Categories value={activeCategory} changeCategory={changeCategory} />
-                <Sort value={activeItemSorting} changeSorting={changeSorting} />
+                <Categories />
+                <Sort />
             </div>
             <h2 className="content__title">List pizzas</h2>
             <div className="content__items">

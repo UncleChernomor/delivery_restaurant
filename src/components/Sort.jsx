@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSortId } from "../redux/slice/filterSlice";
 
-function Sort({ changeSorting, value, props }) {
+function Sort({ changeSorting, props }) {
     const [isVisible, setVisible] = useState(false);
+
+    const value = useSelector((state) => state.filter.sortId);
+    const dispatch = useDispatch();
 
     const sortBy = ['popular', 'price', 'alphabet'];
 
     function changeSelectItem(index) {
-        changeSorting(index);
+        dispatch(setSortId(index));
         setVisible(false);
     }
 
