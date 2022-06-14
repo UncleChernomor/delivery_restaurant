@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import styles from './InputSearch.module.scss';
 import { SearchContext } from '../../App';
 
 function InputSearch(props) {
     const { searchValue, setSearchValue } = useContext(SearchContext);
+
+    const inputRef = useRef(null);
+
+    function clearInput() {
+        console.log(inputRef);
+        setSearchValue('');
+        inputRef.current.focus();
+    }
 
     return (
         <div className={styles.root} >
@@ -12,13 +20,14 @@ function InputSearch(props) {
                     id="XMLID_223_" />
             </svg>
             <input
+                ref={inputRef}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 type="text"
                 placeholder='find'
                 className={styles.input__search}
             />
-            <svg className={styles.icon__remove} onClick={() => setSearchValue('')} dataName="Layer 1" height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
+            <svg className={styles.icon__remove} onClick={clearInput} dataName="Layer 1" height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
                 <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
             </svg>
         </div >
