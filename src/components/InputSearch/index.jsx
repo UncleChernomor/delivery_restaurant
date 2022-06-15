@@ -1,14 +1,29 @@
-import { useContext, useRef } from 'react';
-import styles from './InputSearch.module.scss';
+import { useContext, useRef, useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
+
 import { SearchContext } from '../../App';
 
+import styles from './InputSearch.module.scss';
+
+
 function InputSearch(props) {
-    const { searchValue, setSearchValue } = useContext(SearchContext);
+    const [currentValue, setCurrentValue] = useState('');
+    const { setSearchValue } = useContext(SearchContext);
 
     const inputRef = useRef(null);
 
+    const search = useCallback(debounce((value) => {
+        console.log('hiCallback');
+        setSearchValue(value);
+    }, 1000), []);
+
+    const changeInputText = (e) => {
+        setCurrentValue(e.target.value);
+        search(e.target.value);
+    }
+
     function clearInput() {
-        console.log(inputRef);
+        setCurrentValue('');
         setSearchValue('');
         inputRef.current.focus();
     }
@@ -21,13 +36,13 @@ function InputSearch(props) {
             </svg>
             <input
                 ref={inputRef}
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                value={currentValue}
+                onChange={(e) => changeInputText(e)}
                 type="text"
                 placeholder='find'
                 className={styles.input__search}
             />
-            <svg className={styles.icon__remove} onClick={clearInput} dataName="Layer 1" height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
+            <svg className={styles.icon__remove} onClick={clearInput} height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
                 <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
             </svg>
         </div >
