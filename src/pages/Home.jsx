@@ -9,7 +9,7 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
 // import filterData from '../utils/search.mjs';
 import Pagination from '../components/Pagination';
-import { setCategoryId } from '../redux/slice/filterSlice';
+import { setCategoryId, setCountPage } from '../redux/slice/filterSlice';
 
 function Home(props) {
     const { searchValue } = useContext(SearchContext);
@@ -17,10 +17,11 @@ function Home(props) {
     const [items, setItems] = useState(new Array(6));
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
-    const [countPage, setCountPage] = useState(0);
 
     const activeCategory = useSelector((state) => state.filter.categoryId);
     const activeItemSorting = useSelector((state) => state.filter.sortId);
+    const countPage = useSelector((state) => state.filter.countPage);
+
     const dispatch = useDispatch();
 
     const sortName = ['rating', 'price', 'title'];
@@ -53,7 +54,7 @@ function Home(props) {
         axios.get(strQuery)
             .then(res => {
                 return new Promise((resolve, reject) => {
-                    setCountPage(Math.ceil(res.data.length / countItemOnPage));
+                    dispatch(setCountPage(Math.ceil(res.data.length / countItemOnPage)));
                     strPage = `&page=${Math.ceil(res.data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(res.data.length / countItemOnPage) ? countItemOnPage : ''}`;
                     resolve(0);
                     console.log(res.data);
@@ -65,28 +66,6 @@ function Home(props) {
                 setIsLoading(false);
             })
             .catch(error => console.log(error));
-
-        // use mockapi server for test data
-        // fetch(strQuery)
-        //     .then((response) => response.json())
-        //     .then(data => {
-        //         return new Promise((resolve, reject) => {
-        //             setCountPage(Math.ceil(data.length / countItemOnPage));
-        //             strPage = `&page=${Math.ceil(data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(data.length / countItemOnPage) ? countItemOnPage : ''}`;
-        //             resolve(0);
-        //         })
-        //     })
-        //     .then(() => fetch(strQuery + strPage))
-        //     .then(response => response.json())
-        //     .then((data) => {
-        //         setItems(data);
-        //         setIsLoading(false);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-
-        // window.scrollTo(0, 0);
     }, [activeCategory, activeItemSorting, searchValue, currentPage]);
 
     /**
