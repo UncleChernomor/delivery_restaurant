@@ -4,6 +4,7 @@ const initialState = {
     categoryId: 0,
     sortId: 0,
     countPage: 0,
+    typeSort: 'desc',
 }
 
 const filterSlice = createSlice({
@@ -18,10 +19,13 @@ const filterSlice = createSlice({
         },
         setCountPage(state, action) {
             state.countPage = action.payload;
+        },
+        setTypeSort(state, action) {
+            state.typeSort = action.payload;
         }
     }
 })
 
-export const { setCategoryId, setSortId, setCountPage } = filterSlice.actions;
+export const { setCategoryId, setSortId, setCountPage, setTypeSort } = filterSlice.actions;
 
 export default filterSlice.reducer;

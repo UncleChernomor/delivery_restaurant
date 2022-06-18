@@ -21,6 +21,7 @@ function Home(props) {
     const activeCategory = useSelector((state) => state.filter.categoryId);
     const activeItemSorting = useSelector((state) => state.filter.sortId);
     const countPage = useSelector((state) => state.filter.countPage);
+    const typeSort = useSelector((state) => state.filter.typeSort);
 
     const dispatch = useDispatch();
 
@@ -28,13 +29,12 @@ function Home(props) {
     const countItemOnPage = 4;
     let countAllItems = 0;
 
-
     useEffect(() => {
         setIsLoading(true);
         setCountPage(Math.ceil(countAllItems / countItemOnPage));
 
         //включаем в строку всегда, но после первого запроса
-        let strSort = `?sortBy=${sortName[activeItemSorting]}`;
+        let strSort = `?sortBy=${sortName[activeItemSorting]}&order=${typeSort}`;
         //включаем после первого запроса, после которого пагинацию делаем
         let strPage = `&page=${countPage ? (currentPage + 1) : ''}&limit=${countPage ? countItemOnPage : ''}`;
         //можно либо категорию использовать, либо строку поиска. Включаем при категории >0 
@@ -66,7 +66,7 @@ function Home(props) {
                 setIsLoading(false);
             })
             .catch(error => console.log(error));
-    }, [activeCategory, activeItemSorting, searchValue, currentPage]);
+    }, [activeCategory, activeItemSorting, searchValue, currentPage, typeSort]);
 
     /**
      * callback for Pagination
