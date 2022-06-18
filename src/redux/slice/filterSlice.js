@@ -4,7 +4,7 @@ const initialState = {
     categoryId: 0,
     sortId: 0,
     countPage: 0,
-    typeSort: 'desc',
+    typeSort: 'asc',
 }
 
 const filterSlice = createSlice({
