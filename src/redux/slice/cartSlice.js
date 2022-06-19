@@ -18,8 +18,14 @@ const cartSlice = createSlice({
         addProduct(state, action) {
             const findItem = state.items.find(item => item.guid === action.payload.guid);
 
-            if (findItem === undefined) { state.items.push({ ...action.payload, count: 1 }); }
-            else { findItem.count++; }
+            if (findItem === undefined) {
+                state.items.push({ ...action.payload, count: 1 });
+                state.totalSum += action.payload.price;
+            }
+            else {
+                findItem.count++;
+                state.totalSum += findItem.price;
+            }
         },
         removeItem(state, action) {
 
