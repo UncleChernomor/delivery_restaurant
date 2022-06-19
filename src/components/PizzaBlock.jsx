@@ -1,15 +1,38 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
-function PizzaBlock({ title, price, imageUrl, types, sizes, ...props }) {
-    const [pizzaCount, setPizzaCount] = useState(0);
+import { addProduct } from '../redux/slice/cartSlice';
+
+function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
     const [activeType, setActiveType] = useState(0);
     const [activeSize, setActiveSize] = useState(0);
+
+    const itemsCart = useSelector(state => state.cart.items.filter(obj => obj.id === id));
+    const dispatch = useDispatch();
+
+    let counterPizza = itemsCart.reduce((count, nextItem) => count + nextItem.count, 0)
 
     const typeSize = ['slice', 'standart', 'plump'];
 
     function onClickAdd() {
-        setPizzaCount(pizzaCount + 1);
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            activeType,
+            activeSize,
+            guid: `${id}-${activeType}-${activeSize}`
+        }
+
+        dispatch(addProduct(item));
     }
+
+    // useEffect(() => {
+    //     setPizzaCount(itemsCart.reduce((count, nextItem) => count + nextItem.count, 0));
+    // }, [itemsCart]);
+
 
     return (
         <div className="pizza-block">
@@ -51,7 +74,7 @@ function PizzaBlock({ title, price, imageUrl, types, sizes, ...props }) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>{pizzaCount}</i>
+                    <i>{counterPizza}</i>
                 </div>
             </div>
         </div>

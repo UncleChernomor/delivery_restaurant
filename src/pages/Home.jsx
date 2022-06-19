@@ -49,7 +49,6 @@ function Home(props) {
         }
 
         const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`;
-        console.log('strQuery: ' + strQuery);
 
         axios.get(strQuery)
             .then(res => {
@@ -57,7 +56,6 @@ function Home(props) {
                     dispatch(setCountPage(Math.ceil(res.data.length / countItemOnPage)));
                     strPage = `&page=${Math.ceil(res.data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(res.data.length / countItemOnPage) ? countItemOnPage : ''}`;
                     resolve(0);
-                    console.log(res.data);
                 })
             })
             .then(() => axios.get(strQuery + strPage))

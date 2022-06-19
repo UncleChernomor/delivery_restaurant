@@ -1,7 +1,11 @@
-import { useRef } from "react";
-import { useEffect, useState } from "react";
+import {
+    useRef,
+    useEffect,
+    useState
+} from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { setSortId, setTypeSort } from "../redux/slice/filterSlice";
 
 import styles from './Sort.module.scss';
@@ -49,7 +53,7 @@ function Sort(props) {
         <div className="sort" ref={yourselfRef}>
             <div className="sort__label" >
                 {
-                    typeSort == 'desc' ? <svg className={styles.icon__sort} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                    typeSort === 'desc' ? <svg className={styles.icon__sort} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="20px" height="20px" viewBox="0 0 292.362 292.362" onClick={setSortingAsc}>
                         <path d="M286.935,69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952,0-9.233,1.807-12.85,5.424
 		C1.807,72.998,0,77.279,0,82.228c0,4.948,1.807,9.229,5.424,12.847l127.907,127.907c3.621,3.617,7.902,5.428,12.85,5.428
