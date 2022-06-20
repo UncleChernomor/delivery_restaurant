@@ -60,6 +60,7 @@ function Home(props) {
             })
             .then(() => axios.get(strQuery + strPage))
             .then(res => {
+                console.log(res.data);
                 setItems(res.data);
                 setIsLoading(false);
             })

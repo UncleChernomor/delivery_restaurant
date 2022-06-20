@@ -6,6 +6,8 @@ import CartItem from '../components/CartItem';
 import '../scss/app.scss';
 
 function Cart(props) {
+    const { items, totalPrice } = useSelector(state => state.cart);
+
     return (
         <div className="container--cart">
             <div className="cart">
@@ -28,8 +30,23 @@ function Cart(props) {
                         <span>Очистить корзину</span>
                     </div>
                 </div>
+                {/* const item = {
+                    id,
+                    title,
+                    price,
+                    imageUrl,
+                    activeType,
+                    activeSize,
+                    guid: `${id}-${activeType}-${activeSize}`
+        } */}
                 <div className="cart__items">
-                    <CartItem />
+                    {
+                        items.map(item => <CartItem key={item.guid}
+                            title={item.title}
+                            {...item}
+                        />)
+                    }
+
                 </div>
                 <div className="cart__bottom">
                     <div className="cart__bottom-details">

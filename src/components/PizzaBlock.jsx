@@ -21,8 +21,10 @@ function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
             title,
             price,
             imageUrl,
-            activeType,
-            activeSize,
+            type: activeType,
+            typeName: typeSize[activeType],
+            size: activeSize,
+            sizeName: sizes[activeSize],
             guid: `${id}-${activeType}-${activeSize}`
         }
 
