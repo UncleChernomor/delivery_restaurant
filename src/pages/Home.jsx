@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
+import { setCategoryId, setCountPage } from '../redux/slice/filterSlice';
+import { fetchProducts } from '../redux/slice/productsSlice';
+
 import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -9,19 +12,17 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
 // import filterData from '../utils/search.mjs';
 import Pagination from '../components/Pagination';
-import { setCategoryId, setCountPage } from '../redux/slice/filterSlice';
 
 function Home(props) {
     const { searchValue } = useContext(SearchContext);
 
-    const [items, setItems] = useState(new Array(6));
-    const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
 
     const activeCategory = useSelector((state) => state.filter.categoryId);
     const activeItemSorting = useSelector((state) => state.filter.sortId);
     const countPage = useSelector((state) => state.filter.countPage);
     const typeSort = useSelector((state) => state.filter.typeSort);
+    const { items, isLoading } = useSelector(state => state.products);
 
     const dispatch = useDispatch();
 
@@ -29,10 +30,7 @@ function Home(props) {
     const countItemOnPage = 4;
     let countAllItems = 0;
 
-    useEffect(() => {
-        setIsLoading(true);
-        setCountPage(Math.ceil(countAllItems / countItemOnPage));
-
+    async function getProducts() {
         //включаем в строку всегда, но после первого запроса
         let strSort = `?sortBy=${sortName[activeItemSorting]}&order=${typeSort}`;
         //включаем после первого запроса, после которого пагинацию делаем
@@ -42,29 +40,45 @@ function Home(props) {
         //Включаем как есть strSearch
         let strSearch = searchValue ? `&title=${searchValue}` : '';
 
+        dispatch(fetchProducts({
+            strSort,
+            strPage,
+            strCategory,
+            strSearch,
+        }));
+    }
+
+    useEffect(() => {
+        // ???
+        // setIsLoading(true);
+        setCountPage(Math.ceil(countAllItems / countItemOnPage));
+
+        getProducts();
+        console.log(items);
         //если строка поиска не пустая, а категория задана
         //сбрасываем категорию, mockapi не выдает данные как надо
-        if (strSearch.length && activeCategory) {
-            dispatch(setCategoryId(0));
-        }
+        //  ???
+        // if (strSearch.length && activeCategory) {
+        //     dispatch(setCategoryId(0));
+        // }
 
-        const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`;
+        // const strQuery = `https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`;
 
-        axios.get(strQuery)
-            .then(res => {
-                return new Promise((resolve, reject) => {
-                    dispatch(setCountPage(Math.ceil(res.data.length / countItemOnPage)));
-                    strPage = `&page=${Math.ceil(res.data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(res.data.length / countItemOnPage) ? countItemOnPage : ''}`;
-                    resolve(0);
-                })
-            })
-            .then(() => axios.get(strQuery + strPage))
-            .then(res => {
-                console.log(res.data);
-                setItems(res.data);
-                setIsLoading(false);
-            })
-            .catch(error => console.log(error));
+        // axios.get(strQuery)
+        //     .then(res => {
+        //         return new Promise((resolve, reject) => {
+        //             dispatch(setCountPage(Math.ceil(res.data.length / countItemOnPage)));
+        //             strPage = `&page=${Math.ceil(res.data.length / countItemOnPage) ? (currentPage + 1) : ''}&limit=${Math.ceil(res.data.length / countItemOnPage) ? countItemOnPage : ''}`;
+        //             resolve(0);
+        //         })
+        //     })
+        //     .then(() => axios.get(strQuery + strPage))
+        //     .then(res => {
+        //         console.log(res.data);
+        //         setItems(res.data);
+        //         setIsLoading(false);
+        //     })
+        //     .catch(error => console.log(error));
     }, [activeCategory, activeItemSorting, searchValue, currentPage, typeSort]);
 
     /**
