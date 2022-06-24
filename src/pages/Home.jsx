@@ -22,15 +22,14 @@ function Home(props) {
     const activeItemSorting = useSelector((state) => state.filter.sortId);
     const countPage = useSelector((state) => state.filter.countPage);
     const typeSort = useSelector((state) => state.filter.typeSort);
-    const { items, isLoading } = useSelector(state => state.products);
+    const { items, isLoading, allCountProduct } = useSelector(state => state.products);
 
     const dispatch = useDispatch();
 
     const sortName = ['rating', 'price', 'title'];
     const countItemOnPage = 4;
-    let countAllItems = 0;
 
-    async function getProducts() {
+    function getProducts() {
         //включаем в строку всегда, но после первого запроса
         let strSort = `?sortBy=${sortName[activeItemSorting]}&order=${typeSort}`;
         //включаем после первого запроса, после которого пагинацию делаем
@@ -40,21 +39,18 @@ function Home(props) {
         //Включаем как есть strSearch
         let strSearch = searchValue ? `&title=${searchValue}` : '';
 
-        dispatch(fetchProducts({
-            strSort,
-            strPage,
-            strCategory,
-            strSearch,
-        }));
+        console.log('getProducts countPage: ' + countPage);
+
+        if (!countPage) { dispatch(fetchProducts({})); }
+        else { dispatch(fetchProducts({ strSort, strPage, strCategory, strSearch })); }
     }
 
     useEffect(() => {
+        console.log('useEffect: ALL');
+        getProducts();
+
         // ???
         // setIsLoading(true);
-        setCountPage(Math.ceil(countAllItems / countItemOnPage));
-
-        getProducts();
-        console.log(items);
         //если строка поиска не пустая, а категория задана
         //сбрасываем категорию, mockapi не выдает данные как надо
         //  ???
@@ -79,7 +75,12 @@ function Home(props) {
         //         setIsLoading(false);
         //     })
         //     .catch(error => console.log(error));
-    }, [activeCategory, activeItemSorting, searchValue, currentPage, typeSort]);
+    }, [activeCategory, activeItemSorting, searchValue, currentPage, typeSort, countPage]);
+
+    useEffect(() => {
+        console.log('useEffect: allCountProduct');
+        dispatch(setCountPage(Math.ceil(allCountProduct / countItemOnPage)));
+    }, [allCountProduct]);
 
     /**
      * callback for Pagination

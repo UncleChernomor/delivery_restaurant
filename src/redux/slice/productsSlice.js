@@ -4,13 +4,16 @@ import axios from 'axios';
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async (params) => {
-        const { strSort,
-            strPage,
-            strCategory,
-            strSearch,
-        } = params;
+        let strQuery = '';
+        if (params.hasOwnProperty('strSort')) {
+            const { strSort, strPage, strCategory, strSearch } = params;
+            strQuery = initialState.strBaseQuery + strSort + strPage + strCategory + strSearch;
+        } else {
+            strQuery = initialState.strBaseQuery;
+        }
 
-        const { data } = await axios.get(`https://629603be810c00c1cb6d58ed.mockapi.io/items${strSort}${strCategory}${strSearch}`);
+        const { data } = await axios.get(strQuery);
+
         return data;
     }
 )
@@ -18,6 +21,8 @@ export const fetchProducts = createAsyncThunk(
 const initialState = {
     items: new Array(6),
     isLoading: true,
+    allCountProduct: 0,
+    strBaseQuery: `https://629603be810c00c1cb6d58ed.mockapi.io/items`,
 }
 
 const productsSlice = createSlice({
@@ -26,20 +31,20 @@ const productsSlice = createSlice({
     reducers: {
 
     },
-    extraReducers: (builder) => {
-        builder.addCase(fetchProducts.pending, (state, action) => {
+    extraReducers: {
+        [fetchProducts.pending]: (state, action) => {
             state.isLoading = true;
-        });
-        // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(fetchProducts.fulfilled, (state, action) => {
-            // Add products to the state array
-            state.items = action.payload;
-            // Change status loading th the state value
-            state.isLoading = false;
-        });
-        builder.addCase(fetchProducts.rejected, (state, action) => {
+        },
+        [fetchProducts.fulfilled]: (state, action) => {
+            if (!state.allCountProduct) { state.allCountProduct = action.payload.length; }
+            else {
+                state.items = action.payload;
+                state.isLoading = false;
+            }
+        },
+        [fetchProducts.rejected]: (state, action) => {
             state.isLoading = true;
-        });
+        },
     },
 
 })
