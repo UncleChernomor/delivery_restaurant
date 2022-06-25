@@ -1,0 +1,81 @@
+.root ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 5px;
+  padding: 0px;
+}
+
+.root li {
+  border: 1px solid #fe5f1e;
+  border-radius: 50%;
+  color: #fe5f1e;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root li.pselected {
+  color: #fff;
+  background-color: #fe5f1e;
+}
+
+.root li:hover {
+  cursor: pointer;
+  color: #ff4800;
+  background-color: #fff;
+  font-weight: bolder;
+  border: 3px solid #ff4800;
+}
+
+.root li:active {
+  color: #fff;
+  background-color: #fe5f1e;
+}
+
+.root li.item_icon {
+  border: 0px solid #fff;
+  border-radius: 50%;
+  color: #fe5f1e;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  text-align: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.root li.item_icon:hover {
+  cursor: pointer;
+  color: #ff4800;
+  font-weight: bolder;
+}
+
+.icon {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 32px;
+  height: 32px;
+  fill: #fe5f1e;
+}
+
+.icon:hover {
+  fill: #ff4800;
+  stroke: #ff4800;
+}
+/*# sourceMappingURL=Pagination.module.css.map */

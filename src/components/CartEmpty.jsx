@@ -8,8 +8,8 @@ function CartEmpty(props) {
                 <div class="cart cart--empty">
                     <h2>Cart empty <icon>😕</icon></h2>
                     <p>
-                        Вероятней всего, вы не заказывали ещё пиццу.<br />
-                        Для того, чтобы заказать пиццу, перейди на главную страницу.
+                        Don't you order pizza?<br />
+                        Let's go to Main page. The best pizza waits for you !!!
                     </p>
                     <img src={imgCart} alt="Empty cart" />
                     <Link to="/" class="button button--black">

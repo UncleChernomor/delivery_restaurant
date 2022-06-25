@@ -20,35 +20,36 @@ export const fetchProducts = createAsyncThunk(
 
 const initialState = {
     items: new Array(6),
-    isLoading: true,
+    status: 'loading',  // loading, success, error
     allCountProduct: 0,
     strBaseQuery: `https://629603be810c00c1cb6d58ed.mockapi.io/items`,
+
 }
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: {
         [fetchProducts.pending]: (state, action) => {
-            state.isLoading = true;
+            state.status = 'loading';
+            state.items = new Array(6);
         },
         [fetchProducts.fulfilled]: (state, action) => {
             if (!state.allCountProduct) { state.allCountProduct = action.payload.length; }
             else {
                 state.items = action.payload;
-                state.isLoading = false;
+                state.status = 'success';
             }
         },
         [fetchProducts.rejected]: (state, action) => {
-            state.isLoading = true;
+            state.status = 'error';
+            state.items = [];
         },
     },
 
 })
 
-export const { } = productsSlice.actions;
+// export const { } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,0 +1,11 @@
+.icon__sort {
+  width: 24px;
+  height: 24px;
+  fill: #2C2C2C;
+}
+
+.icon__sort:hover {
+  cursor: pointer;
+  fill: #8b8b8b;
+}
+/*# sourceMappingURL=Sort.module.css.map */

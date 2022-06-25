@@ -1,0 +1,105 @@
+.pizza_block {
+  width: 280px;
+  height: 466px;
+  background-color: #FFFFFF;
+  margin: 5px;
+}
+
+.pizza_block__buttom {
+  color: #fff;
+}
+
+.pizza_image {
+  background-color: #dddddd;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: 0 auto;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.pizza_title {
+  width: 280px;
+  height: 27px;
+  background-color: #dddddd;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.pizza_selector {
+  background-color: #dddddd;
+  width: 280px;
+  height: 100px;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.pizza_price {
+  background-color: #dddddd;
+  width: 115px;
+  height: 35px;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.pizza_button {
+  background-color: #dddddd;
+  width: 152px;
+  height: 45px;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes slidein {
+  0% {
+    background: -webkit-gradient(linear, left top, right top, from(#dddddd), to(#cfcfcf));
+    background: linear-gradient(to right, #dddddd, #cfcfcf);
+  }
+  50% {
+    background: -webkit-gradient(linear, left top, right top, from(#cfcfcf), to(#dddddd));
+    background: linear-gradient(to right, #cfcfcf, #dddddd);
+  }
+  100% {
+    background: -webkit-gradient(linear, left top, right top, from(#dddddd), to(#cfcfcf));
+    background: linear-gradient(to right, #dddddd, #cfcfcf);
+  }
+}
+
+@keyframes slidein {
+  0% {
+    background: -webkit-gradient(linear, left top, right top, from(#dddddd), to(#cfcfcf));
+    background: linear-gradient(to right, #dddddd, #cfcfcf);
+  }
+  50% {
+    background: -webkit-gradient(linear, left top, right top, from(#cfcfcf), to(#dddddd));
+    background: linear-gradient(to right, #cfcfcf, #dddddd);
+  }
+  100% {
+    background: -webkit-gradient(linear, left top, right top, from(#dddddd), to(#cfcfcf));
+    background: linear-gradient(to right, #dddddd, #cfcfcf);
+  }
+}
+/*# sourceMappingURL=Skeleton.module.css.map */

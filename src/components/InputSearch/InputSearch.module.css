@@ -1,0 +1,34 @@
+.root {
+  position: relative;
+}
+
+.input__search {
+  padding: 15px 20px 15px 45px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  font-size: 16px;
+  width: 350px;
+}
+
+.icon__search {
+  top: 14px;
+  left: 12px;
+  width: 26px;
+  height: 26px;
+  opacity: 0.3;
+  position: absolute;
+}
+
+.icon__remove {
+  top: 14px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
+  opacity: 0.3;
+  position: absolute;
+}
+
+.icon__remove:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=InputSearch.module.css.map */
