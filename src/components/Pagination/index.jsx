@@ -1,19 +1,29 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setCurrentPage } from '../../redux/slice/filterSlice';
+
 import styles from './Pagination.module.scss';
 
 function Pagination({ countPage, setPage, ...props }) {
-    const [isActive, setIsActive] = useState(0);
-    console.log('countPage-- ' + countPage);
+    const { currentPage } = useSelector(state => state.filter);
+    const dispatch = useDispatch();
 
     /**
      * 
      * @param {*} type arrow 'left' or 'rigth'
      */
     const setIndexActivePage = (type) => {
-        if (type === 'left' && isActive > 0) { setIsActive(isActive - 1); setPage(isActive - 1); }
-        else if (type === 'rigth' && isActive < (countPage - 1)) { setIsActive(isActive + 1); setPage(isActive + 1); }
-        console.log('1- isActive: ' + isActive)
-        //setPage(isActive);
+        if (type === 'left' && currentPage > 0) {
+            dispatch(setCurrentPage(currentPage - 1));
+        }
+        else if (type === 'rigth' && currentPage < (countPage - 1)) {
+            dispatch(setCurrentPage(currentPage + 1));
+        }
+    }
+
+    function onClickPage(index) {
+        dispatch(setCurrentPage(index));
+
     }
 
     return (
@@ -27,10 +37,9 @@ function Pagination({ countPage, setPage, ...props }) {
                 {/* This is the number page adding loop here*/}
                 {
                     Array.from({ length: countPage }, (_, index) =>
-                        <li className={isActive === index ? styles.pselected : ''}
+                        <li className={currentPage === index ? styles.pselected : ''}
                             key={index} onClick={() => {
-                                setPage(index);
-                                setIsActive(index);
+                                onClickPage(index);
                             }}>{index + 1}
                         </li>
                     )

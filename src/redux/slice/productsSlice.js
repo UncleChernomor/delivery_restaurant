@@ -5,11 +5,13 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async (params) => {
         let strQuery = '';
-        if (params.hasOwnProperty('strSort')) {
-            const { strSort, strPage, strCategory, strSearch } = params;
+        const { strSort, strPage, strCategory, strSearch } = params;
+        console.log(strCategory);
+        if (params.hasOwnProperty('strSearch')) {
             strQuery = initialState.strBaseQuery + strSort + strPage + strCategory + strSearch;
         } else {
-            strQuery = initialState.strBaseQuery;
+            if (strCategory === '') { strQuery = initialState.strBaseQuery; }
+            else { strQuery = initialState.strBaseQuery + strSort + strCategory; }
         }
 
         const { data } = await axios.get(strQuery);
@@ -29,7 +31,12 @@ const initialState = {
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {},
+    reducers: {
+        setAllCountProduct(state, action) {
+            state.allCountProduct = action.payload;
+            state.items = [];
+        }
+    },
     extraReducers: {
         [fetchProducts.pending]: (state, action) => {
             state.status = 'loading';
@@ -50,6 +57,6 @@ const productsSlice = createSlice({
 
 })
 
-// export const { } = productsSlice.actions;
+export const { setAllCountProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCountPage } from '../redux/slice/filterSlice';
+import { setCountPage, setCurrentPage } from '../redux/slice/filterSlice';
 import { fetchProducts } from '../redux/slice/productsSlice';
 
 import { SearchContext } from '../App';
@@ -15,9 +15,7 @@ import Pagination from '../components/Pagination';
 function Home(props) {
     const { searchValue } = useContext(SearchContext);
 
-    const [currentPage, setCurrentPage] = useState(0);
-
-    const { categoryId, countPage, sortId, typeSort } = useSelector((state) => state.filter);
+    const { categoryId, countPage, currentPage, sortId, typeSort } = useSelector((state) => state.filter);
     const { items, status, allCountProduct } = useSelector(state => state.products);
     const dispatch = useDispatch();
 
@@ -25,16 +23,16 @@ function Home(props) {
     const countItemOnPage = 4;
 
     function getProducts() {
-        //включаем в строку всегда, но после первого запроса
+        //includes in any query from get items
         let strSort = `?sortBy=${sortName[sortId]}&order=${typeSort}`;
-        //включаем после первого запроса, после которого пагинацию делаем
+        //includes after query from get countPage
         let strPage = `&page=${countPage ? (currentPage + 1) : ''}&limit=${countPage ? countItemOnPage : ''}`;
-        //можно либо категорию использовать, либо строку поиска. Включаем при категории >0 
+        //You can used category or search, when mockapi is used
         let strCategory = categoryId ? `&category=${categoryId}` : '';
-        //Включаем как есть strSearch
         let strSearch = searchValue ? `&title=${searchValue}` : '';
 
-        if (!countPage) { dispatch(fetchProducts({})); }
+        //first query determines the count of pages to paginate
+        if (!countPage) { dispatch(fetchProducts({ strCategory, strSort })); }
         else if (allCountProduct) { dispatch(fetchProducts({ strSort, strPage, strCategory, strSearch })); }
     }
 
@@ -51,7 +49,7 @@ function Home(props) {
      * @param {*} index current page
      */
     const showPage = (index) => {
-        setCurrentPage(index);
+        dispatch(setCurrentPage(index));
     }
 
     return (
@@ -73,9 +71,6 @@ function Home(props) {
                         :
                         [...items].map((_, index) => (<Skeleton key={index} />))
             }
-
-
-
             <Pagination countPage={countPage} setPage={showPage} />
         </>
     );
