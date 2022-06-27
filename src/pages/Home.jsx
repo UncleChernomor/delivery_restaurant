@@ -66,8 +66,8 @@ function Home(props) {
                         </p> </div>) :
                     status === 'success' ?
                         (<div className="content__items">{items.map((obj) => (<PizzaBlock {...obj} key={obj.id} />))}</div>)
-                        :
-                        [...items].map((_, index) => (<Skeleton key={index} />))
+                        : (<div className="content__items">{[...items].map((_, index) => (<Skeleton key={index} />))}</div>)
+
             }
             <Pagination countPage={countPage} setPage={showPage} />
         </>
