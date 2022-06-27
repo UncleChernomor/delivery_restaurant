@@ -6,6 +6,7 @@ const initialState = {
     sortId: 0,
     currentPage: 0,
     countPage: 0,
+    searchValue: '',
     typeSort: 'asc',
 }
 
@@ -15,8 +16,7 @@ const filterSlice = createSlice({
     reducers: {
         setCategoryId(state, action) {
             state.categoryId = action.payload;
-            // state.countPage = 0;
-            // state.setCurrentPage = 0;
+            state.searchValue = '';
         },
         setSortId(state, action) {
             state.sortId = action.payload;
@@ -27,12 +27,17 @@ const filterSlice = createSlice({
         setCountPage(state, action) {
             state.countPage = action.payload;
         },
+        setSearchValue(state, action) {
+            state.categoryId = 0;
+            state.countPage = 0;
+            state.searchValue = action.payload;
+        },
         setTypeSort(state, action) {
             state.typeSort = action.payload;
         }
     }
 })
 
-export const { setCategoryId, setSortId, setCountPage, setTypeSort, setCurrentPage } = filterSlice.actions;
+export const { setCategoryId, setSortId, setCountPage, setTypeSort, setCurrentPage, setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;

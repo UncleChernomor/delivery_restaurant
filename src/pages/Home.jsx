@@ -13,9 +13,7 @@ import Skeleton from '../components/Skeleton';
 import Pagination from '../components/Pagination';
 
 function Home(props) {
-    const { searchValue } = useContext(SearchContext);
-
-    const { categoryId, countPage, currentPage, sortId, typeSort } = useSelector((state) => state.filter);
+    const { categoryId, countPage, currentPage, sortId, searchValue, typeSort } = useSelector((state) => state.filter);
     const { items, status, allCountProduct } = useSelector(state => state.products);
     const dispatch = useDispatch();
 
@@ -32,7 +30,7 @@ function Home(props) {
         let strSearch = searchValue ? `&title=${searchValue}` : '';
 
         //first query determines the count of pages to paginate
-        if (!countPage) { dispatch(fetchProducts({ strCategory, strSort })); }
+        if (!countPage) { dispatch(fetchProducts({ strCategory, strSort, strSearch })); }
         else if (allCountProduct) { dispatch(fetchProducts({ strSort, strPage, strCategory, strSearch })); }
     }
 

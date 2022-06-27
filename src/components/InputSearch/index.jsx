@@ -1,21 +1,29 @@
-import { useContext, useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import debounce from 'lodash.debounce';
-
-import { SearchContext } from '../../App';
-
+import { setCategoryId, setSearchValue } from '../../redux/slice/filterSlice';
 import styles from './InputSearch.module.scss';
+import { setAllCountProduct } from '../../redux/slice/productsSlice';
+import { useEffect } from 'react';
 
 
 function InputSearch(props) {
     const [currentValue, setCurrentValue] = useState('');
-    const { setSearchValue } = useContext(SearchContext);
+    const searchValue = useSelector(state => state.filter.searchValue);
+    const dispatch = useDispatch();
 
     const inputRef = useRef(null);
 
     const search = useCallback(debounce((value) => {
-        console.log('hiCallback');
-        setSearchValue(value);
+        setDate(value);
     }, 1000), []);
+
+    function setDate(value) {
+        dispatch(setCategoryId(0));
+        dispatch(setAllCountProduct(0));
+        dispatch(setSearchValue(value));
+    }
 
     const changeInputText = (e) => {
         setCurrentValue(e.target.value);
@@ -24,9 +32,14 @@ function InputSearch(props) {
 
     function clearInput() {
         setCurrentValue('');
-        setSearchValue('');
+        dispatch(setAllCountProduct(0));
+        dispatch(setSearchValue(''));
         inputRef.current.focus();
     }
+
+    useEffect(() => {
+        if (searchValue !== currentValue) { setCurrentValue(searchValue); }
+    }, [searchValue]);
 
     return (
         <div className={styles.root} >
@@ -42,9 +55,11 @@ function InputSearch(props) {
                 placeholder='find'
                 className={styles.input__search}
             />
-            <svg className={styles.icon__remove} onClick={clearInput} height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
-                <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
-            </svg>
+            {
+                currentValue ? <svg className={styles.icon__remove} onClick={clearInput} height="200" id="Layer_1" viewBox="0 0 200 200" width="200">
+                    <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
+                </svg> : ''
+            }
         </div >
     );
 }
