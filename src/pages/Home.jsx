@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setCountPage, setCurrentPage } from '../redux/slice/filterSlice';
 import { fetchProducts } from '../redux/slice/productsSlice';
 
-import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
