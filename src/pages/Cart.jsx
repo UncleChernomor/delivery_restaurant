@@ -64,9 +64,9 @@ function Cart(props) {
 
                             <span>Back</span>
                         </Link>
-                        <div className="button pay-btn">
+                        <Link to="/pay" className="button pay-btn">
                             <span>Pay now</span>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
