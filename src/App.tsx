@@ -9,7 +9,6 @@ import Cart from "./pages/Cart";
 import Pay from "./pages/Pay";
 
 function App() {
-
   return (
     <div className="wrapper">
       <Header />
