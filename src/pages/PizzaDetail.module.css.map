@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAC;EACR,OAAO,EAAE,YAAY;EACrB,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "PizzaDetail.module.scss"
+    ],
+    "names": [],
+    "file": "PizzaDetail.module.css"
+}

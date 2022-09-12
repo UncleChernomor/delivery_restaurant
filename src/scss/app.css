@@ -370,6 +370,10 @@ a {
   width: 260px;
 }
 
+.pizza-block__image:hover {
+  cursor: pointer;
+}
+
 .pizza-block__title {
   font-size: 20px;
   font-weight: 900;

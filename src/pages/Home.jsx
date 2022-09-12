@@ -8,7 +8,6 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
-// import filterData from '../utils/search.mjs';
 import Pagination from '../components/Pagination';
 
 function Home(props) {

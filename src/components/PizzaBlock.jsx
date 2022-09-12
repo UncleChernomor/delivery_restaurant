@@ -1,12 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router";
 
 import { addProduct } from '../redux/slice/cartSlice';
 
 function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
     const [activeType, setActiveType] = useState(0);
     const [activeSize, setActiveSize] = useState(0);
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     //maybe union itemsCart and counterPizza
@@ -31,12 +32,17 @@ function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
         dispatch(addProduct(item));
     }
 
+    const onClickPizzaDetail = () => {
+        navigate(`/pizza/${id}`, { replace: true });
+    };
+
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
                 src={imageUrl}
                 alt="Pizza"
+                onClick={onClickPizzaDetail}
             />
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
