@@ -15,7 +15,7 @@ function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
 
     const typeSize = ['slice', 'standart', 'plump'];
 
-    function onClickAdd() {
+    const onClickAdd = () => {
         const item = {
             id,
             title,

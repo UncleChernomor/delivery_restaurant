@@ -7,6 +7,10 @@
 
   &__image {
     width: 260px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__title {
