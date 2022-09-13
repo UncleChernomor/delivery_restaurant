@@ -1,3 +1,31 @@
+div {
+  text-align: center;
+}
+
+.pizza_header {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pizza_title {
+  font-size: 20px;
+  text-align: left;
+}
+
+.pizza_price {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+}
+
 .pizza__img {
   display: inline-block;
   width: 450px;

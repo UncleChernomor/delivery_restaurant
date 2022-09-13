@@ -26,12 +26,16 @@ function PizzaDetail(props) {
 
     return pizza && (
         <div>
-            <h2>Detail Pizza</h2>
-            <div>{pizza.title}</div>
-            <div>
-                <img src={pizza.imageUrl} alt={pizza.title} className={styles.pizza__img} />
+            <div className={styles.pizza_header}>
+                <h1 className={styles.pizza_title}>{pizza.title}</h1>
+                <div className={styles.pizza_price}>Price: ${pizza.price}</div>
             </div>
-        </div>
+
+            <img src={pizza.imageUrl} alt={pizza.title} className={styles.pizza__img} />
+            <div className={styles.pizza_description}>
+                <span className="pizza-description__text">Here, I think necessary add description in every pizza. It was make when I make myself Database and API</span>
+            </div>
+        </div >
     );
 }
 
