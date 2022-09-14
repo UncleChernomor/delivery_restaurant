@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import './scss/app.scss';
@@ -9,7 +10,7 @@ import Cart from "./pages/Cart";
 import Pay from "./pages/Pay";
 import PizzaDetail from "./pages/PizzaDetail";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="wrapper">
       <Header />
