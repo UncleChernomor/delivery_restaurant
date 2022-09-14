@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import debounce from 'lodash.debounce';
@@ -8,24 +8,24 @@ import { setAllCountProduct } from '../../redux/slice/productsSlice';
 import { useEffect } from 'react';
 
 
-function InputSearch(props) {
-    const [currentValue, setCurrentValue] = useState('');
-    const searchValue = useSelector(state => state.filter.searchValue);
+const InputSearch: React.FC = () => {
+    const [currentValue, setCurrentValue] = useState<any>('');
+    const searchValue = useSelector<any>(state => state.filter.searchValue);
     const dispatch = useDispatch();
 
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const search = useCallback(debounce((value) => {
-        setDate(value);
+    const search = useCallback(debounce((value: string) => {
+        setData(value);
     }, 1000), []);
 
-    function setDate(value) {
+    const setData = (value: string) => {
         dispatch(setCategoryId(0));
         dispatch(setAllCountProduct(0));
         dispatch(setSearchValue(value));
     }
 
-    const changeInputText = (e) => {
+    const changeInputText = (e: any) => {
         setCurrentValue(e.target.value);
         search(e.target.value);
     }
@@ -34,7 +34,7 @@ function InputSearch(props) {
         setCurrentValue('');
         dispatch(setAllCountProduct(0));
         dispatch(setSearchValue(''));
-        inputRef.current.focus();
+        inputRef?.current?.focus();
     }
 
     useEffect(() => {
