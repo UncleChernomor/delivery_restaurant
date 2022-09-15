@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Login(props) {
+const Login: React.FC = () => {
     return (
         <div>
             <h1>Login page</h1>

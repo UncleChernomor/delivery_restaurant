@@ -4,17 +4,27 @@ import { useNavigate } from "react-router";
 
 import { addProduct } from '../redux/slice/cartSlice';
 
-function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
-    const [activeType, setActiveType] = useState(0);
-    const [activeSize, setActiveSize] = useState(0);
+type ItemBox = {
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+    types: any;
+    sizes: number[];
+}
+
+const PizzaBlock: React.FC<ItemBox> = ({ id, title, price, imageUrl, types, sizes }) => {
+    const [activeType, setActiveType] = useState<number>(0);
+    const [activeSize, setActiveSize] = useState<number>(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     //maybe union itemsCart and counterPizza
+    // @ts-ignore
     const itemsCart = useSelector(state => state.cart.items.filter(obj => obj.id === id));
-    let counterPizza = itemsCart.reduce((count, nextItem) => count + nextItem.count, 0)
+    let counterPizza = itemsCart.reduce((count: number, nextItem: any) => count + nextItem.count, 0)
 
-    const typeSize = ['slice', 'standart', 'plump'];
+    const typeSize: string[] = ['slice', 'standart', 'plump'];
 
     const onClickAdd = () => {
         const item = {
@@ -48,7 +58,7 @@ function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
             <div className="pizza-block__selector">
                 <ul>
                     {
-                        types.map((item) => (
+                        types.map((item: any) => (
                             <li key={item} className={activeType === item ? 'active' : ''} onClick={() => setActiveType(item)}>{typeSize[item]}</li>
                         ))
                     }

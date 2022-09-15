@@ -1,13 +1,15 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId, setCountPage, setCurrentPage } from "../redux/slice/filterSlice";
 import { setAllCountProduct } from "../redux/slice/productsSlice";
 
-function Categories({ props }) {
+const Categories: React.FC = () => {
+    // @ts-ignore
     const value = useSelector((state) => state.filter.categoryId);
     const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Spicy', 'Сalcione'];
     const dispatch = useDispatch();
 
-    function onClickCategory(index) {
+    function onClickCategory(index: number) {
         dispatch(setCategoryId(index));
         dispatch(setAllCountProduct(0));
         dispatch(setCountPage(0));

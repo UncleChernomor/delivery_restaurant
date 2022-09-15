@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Pay(props) {
+const Pay: React.FC = () => {
     return (
         <div>
             <h1>Payment page</h1>

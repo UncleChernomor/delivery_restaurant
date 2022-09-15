@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setCountPage, setCurrentPage } from '../redux/slice/filterSlice';
@@ -10,8 +10,10 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/Skeleton';
 import Pagination from '../components/Pagination';
 
-function Home(props) {
+const Home: React.FC = () => {
+    // @ts-ignore
     const { categoryId, countPage, currentPage, sortId, searchValue, typeSort } = useSelector((state) => state.filter);
+    // @ts-ignore
     const { items, status, allCountProduct } = useSelector(state => state.products);
     const dispatch = useDispatch();
 
@@ -28,8 +30,12 @@ function Home(props) {
         let strSearch = searchValue ? `&title=${searchValue}` : '';
 
         //first query determines the count of pages to paginate
+        // @ts-ignore
         if (!countPage) { dispatch(fetchProducts({ strCategory, strSort, strSearch })); }
-        else if (allCountProduct) { dispatch(fetchProducts({ strSort, strPage, strCategory, strSearch })); }
+        else if (allCountProduct) {
+            // @ts-ignore
+            dispatch(fetchProducts({ strSort, strPage, strCategory, strSearch }));
+        }
     }
 
     useEffect(() => {
@@ -44,7 +50,7 @@ function Home(props) {
      * callback for Pagination
      * @param {*} index current page
      */
-    const showPage = (index) => {
+    const showPage = (index: number) => {
         dispatch(setCurrentPage(index));
     }
 
@@ -58,12 +64,12 @@ function Home(props) {
 
             {
                 status === 'error' ?
-                    (<div className='content__items--error'><h2>Pizza list don't load <icon>😕</icon></h2>
+                    (<div className='content__items--error'><h2>Pizza list don't load <span>😕</span></h2>
                         <p>
                             You can  try it later !!!
                         </p> </div>) :
                     status === 'success' ?
-                        (<div className="content__items">{items.map((obj) => (<PizzaBlock {...obj} key={obj.id} />))}</div>)
+                        (<div className="content__items">{items.map((obj: any) => (<PizzaBlock {...obj} key={obj.id} />))}</div>)
                         : (<div className="content__items">{[...items].map((_, index) => (<Skeleton key={index} />))}</div>)
 
             }

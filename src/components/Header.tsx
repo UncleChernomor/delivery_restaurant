@@ -1,4 +1,5 @@
 
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -6,10 +7,10 @@ import pizzaLogo from '../assets/img/pizza-logo.svg';
 import { selectCart } from "../redux/slice/cartSlice";
 import InputSearch from './InputSearch';
 
-function Header() {
+const Header: React.FC = () => {
 
     const { items, totalSum } = useSelector(selectCart);
-    let countPizzas = items.reduce((count, item) => count + item.count, 0);
+    let countPizzas = items.reduce((count: number, item: any) => count + item.count, 0);
 
     return (
         <div className="header">

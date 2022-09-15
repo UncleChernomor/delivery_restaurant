@@ -1,6 +1,7 @@
+import React from 'react';
 import styles from './Skeleton.module.scss';
 
-function Skeleton(props) {
+const Skeleton: React.FC = () => {
     return (
         <div className={styles.pizza_block}>
             <div

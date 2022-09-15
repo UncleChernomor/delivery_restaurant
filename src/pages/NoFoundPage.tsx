@@ -1,4 +1,6 @@
-function NoFoundPage(props) {
+import React from "react";
+
+const NoFoundPage: React.FC = () => {
     return (
         <div>
             NoFoundPage
