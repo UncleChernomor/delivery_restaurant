@@ -4,7 +4,9 @@ import { setCurrentPage } from '../../redux/slice/filterSlice';
 
 import styles from './Pagination.module.scss';
 
-function Pagination({ countPage, setPage, ...props }) {
+// @ts-ignore
+const Pagination = ({ countPage, setPage, ...props }) => {
+    // @ts-ignore
     const { currentPage } = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
@@ -12,7 +14,7 @@ function Pagination({ countPage, setPage, ...props }) {
      * 
      * @param {*} type arrow 'left' or 'rigth'
      */
-    const setIndexActivePage = (type) => {
+    const setIndexActivePage = (type: string) => {
         if (type === 'left' && currentPage > 0) {
             dispatch(setCurrentPage(currentPage - 1));
         }
@@ -21,7 +23,7 @@ function Pagination({ countPage, setPage, ...props }) {
         }
     }
 
-    function onClickPage(index) {
+    function onClickPage(index: number) {
         dispatch(setCurrentPage(index));
 
     }
