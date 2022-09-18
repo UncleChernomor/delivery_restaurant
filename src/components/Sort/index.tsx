@@ -19,23 +19,23 @@ const Sort: React.FC = () => {
      * 
      * @param {*} index changing active item sort
      */
-    function changeSelectItem(index: number) {
+    const changeSelectItem = (index: number) => {
         dispatch(setSortId(index));
         setVisible(false);
     }
 
-    function setSortingAsc() {
+    const setSortingAsc = () => {
         dispatch(setTypeSort('asc'));
     }
 
-    function setSortingDesc() {
+    const setSortingDesc = () => {
         dispatch(setTypeSort('desc'));
     }
 
-    function handleClickAnotherItem(e: any) {
+    const handleClickAnotherItem = (e: any) => {
         if (!e.path.includes(yourselfRef.current)) {
             setVisible(false);
-        };
+        }
     };
 
     useEffect(() => {

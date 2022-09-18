@@ -13,7 +13,7 @@ const Cart: React.FC = () => {
 
     const totalItems = items.reduce((count: number, item: any) => count + item.count, 0);
 
-    function onClickClearCart() {
+    const onClickClearCart = () => {
         // @ts-ignore
         dispatch(clearItems());
     }

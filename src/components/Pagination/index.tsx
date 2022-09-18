@@ -23,7 +23,7 @@ const Pagination = ({ countPage, setPage }) => {
         }
     }
 
-    function onClickPage(index: number) {
+    const onClickPage = (index: number) => {
         dispatch(setCurrentPage(index));
 
     }
