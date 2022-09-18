@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import debounce from 'lodash.debounce';
@@ -15,9 +15,9 @@ const InputSearch: React.FC = () => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const search = useCallback(debounce((value: string) => {
+    const search = debounce((value: string) => {
         setData(value);
-    }, 1000), []);
+    }, 1000);
 
     const setData = (value: string) => {
         dispatch(setCategoryId(0));
@@ -25,12 +25,12 @@ const InputSearch: React.FC = () => {
         dispatch(setSearchValue(value));
     }
 
-    const changeInputText = (e: any) => {
+    const changeInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentValue(e.target.value);
         search(e.target.value);
     }
 
-    function clearInput() {
+    const clearInput = () => {
         setCurrentValue('');
         dispatch(setAllCountProduct(0));
         dispatch(setSearchValue(''));
@@ -38,7 +38,7 @@ const InputSearch: React.FC = () => {
     }
 
     useEffect(() => {
-        if (searchValue !== currentValue) { setCurrentValue(searchValue); }
+        setCurrentValue(searchValue);
     }, [searchValue]);
 
     return (
@@ -50,7 +50,7 @@ const InputSearch: React.FC = () => {
             <input
                 ref={inputRef}
                 value={currentValue}
-                onChange={(e) => changeInputText(e)}
+                onChange={changeInputText}
                 type="text"
                 placeholder='find'
                 className={styles.input__search}
