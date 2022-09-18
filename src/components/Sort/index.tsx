@@ -32,8 +32,8 @@ const Sort: React.FC = () => {
         dispatch(setTypeSort('desc'));
     }
 
-    const handleClickAnotherItem = (e: any) => {
-        if (!e.path.includes(yourselfRef.current)) {
+    const handleClickAnotherItem = (e: MouseEvent) => {
+        if (yourselfRef.current && !e.composedPath().includes(yourselfRef.current)) {
             setVisible(false);
         }
     };
